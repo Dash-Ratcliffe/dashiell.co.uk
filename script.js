@@ -58,37 +58,48 @@ function getGraphicsInfo() {
 function getBrowserInfo() {
   let browserStr = "";
   if (navigator.userAgentData && navigator.userAgentData.brands) {
-    let brands = navigator.userAgentData.brands.filter(item => !item.brand.includes("Not A"));
+    const unwantedBrand = "notabrand";
+    // Filter out any brand that, when normalized, equals "notabrand"
+    let brands = navigator.userAgentData.brands.filter(item => {
+      const normalized = item.brand.replace(/[\s:-]/g, "").toLowerCase();
+      return normalized !== unwantedBrand;
+    });
+    // Reverse the remaining brands if you need to change the order
     brands = brands.reverse();
+    // Map them to the desired format
     browserStr = brands
-      .map(item => `${item.brand.replace(/\s+/g, '')} v${item.version}`)
+      .map(item => `${item.brand.replace(/\s+/g, "")} v${item.version}`)
       .join(" - ");
   } else {
+    // Fallback method using userAgent string
     const ua = navigator.userAgent;
     let browserName = "";
     let version = "";
+    
     if (ua.indexOf("Opera") > -1 || ua.indexOf("OPR") > -1) {
       browserName = "Opera";
-      let res = ua.match(/(?:Opera|OPR)\/(\d+)/);
+      const res = ua.match(/(?:Opera|OPR)\/(\d+)/);
       version = res ? res[1] : "";
     } else if (ua.indexOf("Chrome") > -1) {
       browserName = "Chrome";
-      let res = ua.match(/Chrome\/(\d+)/);
+      const res = ua.match(/Chrome\/(\d+)/);
       version = res ? res[1] : "";
     } else if (ua.indexOf("Safari") > -1) {
       browserName = "Safari";
-      let res = ua.match(/Version\/(\d+)/);
+      const res = ua.match(/Version\/(\d+)/);
       version = res ? res[1] : "";
     } else if (ua.indexOf("Firefox") > -1) {
       browserName = "Firefox";
-      let res = ua.match(/Firefox\/(\d+)/);
+      const res = ua.match(/Firefox\/(\d+)/);
       version = res ? res[1] : "";
     } else {
       browserName = "Unknown";
       version = "";
     }
+    
     browserStr = `${browserName} v${version}`;
   }
+  
   return browserStr;
 }
 
