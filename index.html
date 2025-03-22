@@ -1,34 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[Your Name] - Cybersecurity Student</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="favicon.png"> <!-- Placeholder for favicon -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[Your Name] - Cybersecurity Student</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Source+Code+Pro&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <div class="container">
-        <header>
-            <img src="placeholder-photo.jpg" alt="Your Photo" class="profile-pic">
-            <h1>[Your Name]</h1>
-            <h2>Cybersecurity Student at [University Name]</h2>
-            <p>[Your 1-2 sentence statement about your focus area]</p>
-        </header>
+  <div class="container">
+    <header>
+      <div class="header-content">
+        <div class="text-content">
+          <h1>[Your Name]</h1>
+          <p class="contact-info">
+            <a href="mailto:contact@[domain].com">contact@[domain].com</a>
+          </p>
+        </div>
+        <img src="placeholder-photo.jpg" alt="Your Photo" class="profile-pic" />
+      </div>
+    </header>
 
-        <section id="contact">
-            <p>Feel free to contact me at <a href="mailto:contact@[domain].com">contact@[domain].com</a></p>
-        </section>
+    <section id="about">
+      <h2>Cybersecurity Student at [University Name]</h2>
+      <p>
+        [Your 1-2 sentence statement about your focus area]. I am particularly passionate about 
+        [Specific area of interest within cyber] and always keen to explore the latest developments in the field.
+      </p>
+    </section>
 
-        <section id="cipher">
-            <h3>Caesar Cipher Demo</h3>
-            <p>Enter text to encrypt/decrypt:</p>
-            <input type="text" id="cipherInput" placeholder="Enter text...">
-            <button id="cipherButton">Encrypt/Decrypt</button>
-            <p>Result: <span id="cipherOutput"></span></p>
-        </section>
-    </div>
+    <section id="computerScan">
+      <h3>Computer Information Scan</h3>
+      <p class="disclaimer">This is a fun demonstration of web development skills. No actual user data is collected or stored.</p>
+      <button id="scanButton">Start Scan</button>
+      <div id="scanAnimation">
+        <div class="scan-line"></div>
+        <!-- Blips (their appearance will be triggered by JS) -->
+        <div class="scan-blip"></div>
+        <div class="scan-blip"></div>
+        <div class="scan-blip"></div>
+        <!-- Predefined target positions -->
+        <div class="scan-target target1"></div>
+        <div class="scan-target target2"></div>
+        <div class="scan-target target3"></div>
+      </div>
+      <div id="scanResults"><!-- User-agent information will appear here --></div>
+    </section>
 
-    <script src="script.js"></script>
+    <section>
+      <p style="text-align: center; opacity: 0.4; margin-top: 50px;">Designed and created by [Your Name]</p>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
