@@ -54,6 +54,13 @@ h1 {
   font-style: italic;
 }
 
+.university-info { /* Added style for university info */
+    color: #ccc;
+    font-size: 1.1em;
+    margin-top: 0.5em;
+}
+
+
 #about {
   text-align: center;
   margin-bottom: 40px;
@@ -243,3 +250,4 @@ h2 {
     padding-left: 10%;
   }
 }
+
