@@ -59,17 +59,21 @@ function getBrowserInfo() {
   let browserStr = "";
   if (navigator.userAgentData && navigator.userAgentData.brands) {
     const unwantedBrand = "notabrand";
-    // Filter out any brand that, when normalized, equals "notabrand"
+    // Filter out any brand that, when normalised, contains 'NotA'
     let brands = navigator.userAgentData.brands.filter(item => {
       const normalized = item.brand.replace(/[\s:-]/g, "").toLowerCase();
-      return normalized !== unwantedBrand;
+      return !normalized.includes("NotA")
     });
-    // Reverse the remaining brands if you need to change the order
-    brands = brands.reverse();
-    // Map them to the desired format
-    browserStr = brands
-      .map(item => `${item.brand.replace(/\s+/g, "")} v${item.version}`)
-      .join(" - ");
+    if (brands.length === 0) {
+      browserStr = "Unknown";
+    } else {
+      // Reverse the remaining brands if you need to change the order
+      brands = brands.reverse();
+      // Map them to the desired format
+      browserStr = brands
+        .map(item => `${item.brand.replace(/\s+/g, "")} v${item.version}`)
+        .join(" - ");
+    }
   } else {
     // Fallback method using userAgent string
     const ua = navigator.userAgent;
@@ -97,7 +101,14 @@ function getBrowserInfo() {
       version = "";
     }
     
+    if (browserName.includes("NotA")) {
+      browserName = "";
+      version = "";
+    }
     browserStr = `${browserName} v${version}`;
+    if(browserStr == " v"){
+      browserStr = "Unknown"
+    }
   }
   
   return browserStr;
