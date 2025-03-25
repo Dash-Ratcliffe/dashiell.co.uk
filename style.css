@@ -47,6 +47,7 @@ h1 {
   font-weight: 700;
 }
 
+/* Style the links within .contact-info, not .contact-info itself */
 .contact-info a {
   color: #eee;
   text-decoration: none;
@@ -55,8 +56,21 @@ h1 {
   transition: color 0.2s ease;
 }
 
-.contact-info:hover {
+/* Hover styles for the LinkedIn link */
+.linkedin-link:hover {
+    color: #3498db;
+}
+
+/* Hover styles for the email link */
+.email-link:hover {
+    color: #3498db;
+    text-decoration: underline;
+}
+
+
+.separator {
   color: #3498db;
+  font-size: 1.2em;
 }
 
 .university-info { /* Added style for university info */
@@ -73,6 +87,7 @@ h1 {
 
 .university-link:hover {
   color: #3498db;
+  text-decoration: underline;
 }
 
 #about {
@@ -264,4 +279,3 @@ h2 {
     padding-left: 10%;
   }
 }
-
