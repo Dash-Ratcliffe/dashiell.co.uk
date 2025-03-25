@@ -57,60 +57,33 @@ function getGraphicsInfo() {
 // Extracts browser information from user agent data
 function getBrowserInfo() {
   let browserStr = "";
+
   if (navigator.userAgentData && navigator.userAgentData.brands) {
-    const unwantedBrand = "notabrand";
-    // Filter out any brand that, when normalised, contains 'NotA'
+    // Filter out any brand that contains "Not A" or variations of it.
     let brands = navigator.userAgentData.brands.filter(item => {
-      const normalized = item.brand.replace(/[\s:-]/g, "").toLowerCase();
-      return !normalized.includes("NotA")
+      const normalisedBrand = item.brand.toLowerCase().replace(/[\s;:-]/g, ""); // Normalize: lowercase & remove spaces/punctuation.
+      return !normalisedBrand.includes("nota"); // More robust "Not A" check
     });
+
     if (brands.length === 0) {
       browserStr = "Unknown";
     } else {
-      // Reverse the remaining brands if you need to change the order
+      //Reverse the remaining brands
       brands = brands.reverse();
-      // Map them to the desired format
+
+      //  Build the string, handling potential whitespace.
       browserStr = brands
-        .map(item => `${item.brand.replace(/\s+/g, "")} v${item.version}`)
+        .map(item => {
+          const cleanBrand = item.brand.trim(); // Remove leading/trailing whitespace from the brand name
+          return `${cleanBrand} v${item.version}`;
+        })
         .join(" - ");
     }
+
   } else {
-    // Fallback method using userAgent string
-    const ua = navigator.userAgent;
-    let browserName = "";
-    let version = "";
-    
-    if (ua.indexOf("Opera") > -1 || ua.indexOf("OPR") > -1) {
-      browserName = "Opera";
-      const res = ua.match(/(?:Opera|OPR)\/(\d+)/);
-      version = res ? res[1] : "";
-    } else if (ua.indexOf("Chrome") > -1) {
-      browserName = "Chrome";
-      const res = ua.match(/Chrome\/(\d+)/);
-      version = res ? res[1] : "";
-    } else if (ua.indexOf("Safari") > -1) {
-      browserName = "Safari";
-      const res = ua.match(/Version\/(\d+)/);
-      version = res ? res[1] : "";
-    } else if (ua.indexOf("Firefox") > -1) {
-      browserName = "Firefox";
-      const res = ua.match(/Firefox\/(\d+)/);
-      version = res ? res[1] : "";
-    } else {
-      browserName = "Unknown";
-      version = "";
-    }
-    
-    if (browserName.includes("NotA")) {
-      browserName = "";
-      version = "";
-    }
-    browserStr = `${browserName} v${version}`;
-    if(browserStr == " v"){
-      browserStr = "Unknown"
-    }
+    browserStr = "Unkown";
   }
-  
+
   return browserStr;
 }
 
