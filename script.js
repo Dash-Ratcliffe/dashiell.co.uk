@@ -1,7 +1,3 @@
-//////////////////////////
-// Additional API Functions
-//////////////////////////
-
 // Function to get battery status:
 async function getBatteryStatus() {
   if (navigator.getBattery) {
@@ -50,10 +46,6 @@ function getGraphicsInfo() {
   return { vendor, renderer };
 }
 
-//////////////////////////
-// Existing Helper Functions
-//////////////////////////
-
 // Extracts browser information from user agent data
 function getBrowserInfo() {
   let browserStr = "";
@@ -61,17 +53,17 @@ function getBrowserInfo() {
   if (navigator.userAgentData && navigator.userAgentData.brands) {
     // Filter out any brand that contains "Not A" or variations of it.
     let brands = navigator.userAgentData.brands.filter(item => {
-      const normalisedBrand = item.brand.toLowerCase().replace(/[\s;:-]/g, ""); // Normalize: lowercase & remove spaces/punctuation.
-      return !normalisedBrand.includes("nota"); // More robust "Not A" check
+      const normalisedBrand = item.brand.toLowerCase().replace(/[\s;:-]/g, ""); // Normalise: lowercase & remove spaces/punctuation.
+      return !normalisedBrand.includes("nota");
     });
 
     if (brands.length === 0) {
       browserStr = "Unknown";
     } else {
-      //Reverse the remaining brands
+      // Reverse the remaining brands
       brands = brands.reverse();
 
-      //  Build the string, handling potential whitespace.
+      // Build the string, handling potential whitespace.
       browserStr = brands
         .map(item => {
           const cleanBrand = item.brand.trim(); // Remove leading/trailing whitespace from the brand name
@@ -81,13 +73,13 @@ function getBrowserInfo() {
     }
 
   } else {
-    browserStr = "Unkown";
+    browserStr = "Unknown";
   }
 
   return browserStr;
 }
 
-// Extracts a friendlier operating system name.
+// Extracts operating system name.
 function getOperatingSystem() {
   let os = "";
   if (navigator.userAgentData && navigator.userAgentData.platform) {
@@ -107,10 +99,7 @@ function getOperatingSystem() {
   return os;
 }
 
-//////////////////////////
-// Main Scan Code
-//////////////////////////
-
+// Main scan code
 document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("scanButton").addEventListener("click", function () {
     const scanButton = document.getElementById("scanButton");
@@ -164,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }, yellowDelays[index]);
     });
 
-    // Static Red Blips (Targets)
+    // Static Red Blips
     const containerWidth = scanAnimation.clientWidth;
     staticRedTargets.forEach((target) => {
       const targetRect = target.getBoundingClientRect();
@@ -239,10 +228,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         const screenResolution = `${window.screen.width}x${window.screen.height}`;
 
-        // NEW: Device Memory (in GB, if available)
+        // Device Memory (in GB if available)
         const deviceMemory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "Not available";
 
-        // NEW: Battery Status
+        // Battery Status
         const batteryStatus = await getBatteryStatus();
         let batteryInfo = "";
         if (batteryStatus) {
@@ -251,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function() {
           batteryInfo = "Battery: Not available";
         }
 
-        // NEW: Graphics Information
+        // Graphics Information
         const graphicsInfo = getGraphicsInfo();
         let graphicsStr = "";
         if (graphicsInfo) {
